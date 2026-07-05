@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/mehinhome/dev/algo/comp/1300/build/monocarp_string'
+relocations:     []
+...
