@@ -4,33 +4,38 @@ using namespace std;
 void solve() {
     int n, m, h;
     cin >> n >> m >> h;
-    vector<int> arr(n);
-    vector<int> ans(n);
+    vector<int> a(n);
+    vector<int> orig(n);
     for (int i = 0; i < n; i++) {
-        cin >> arr[i];
-        ans[i] = arr[i];
+        cin >> a[i];
+        orig[i] = a[i];
     }
+
+    vector<int> lastEdit(n);
     int lastReset = -1;
-    vector<int> last(n);
-
     for (int i = 0; i < m; i++) {
-        int a, b;
-        cin >> a >> b;
-        a--;
-        if (last[a] < lastReset) {
-            ans[a] = arr[a];
+        int b, c;
+        cin >> b >> c;
+        b--;
+        a[b] += c;
+        if (lastEdit[b] < lastReset) {
+            a[b] = orig[b] + c;
         }
-        ans[a] += b;
-        if (ans[a] > h) {
+        if (a[b] > h) {
+            a[b] = orig[b];
             lastReset = i;
-            ans[a] = arr[a];
         }
-        last[a] = i;
+        lastEdit[b] = i;
     }
 
     for (int i = 0; i < n; i++) {
-        if (last[i] < lastReset) ans[i] = arr[i];
-        cout << ans[i] << ' ';
+        if (lastEdit[i] < lastReset) {
+            a[i] = orig[i];
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << ' ';
     }
     cout << '\n';
 }
