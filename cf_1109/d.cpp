@@ -5,33 +5,29 @@ void solve() {
     int n, m;
     cin >> n >> m;
     vector<int> a(n);
+    vector<int> b(m + 1);
+    b[0] = 0;
     for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    set<int> b;
-    for (int i = 0; i < m; i++) {
-        int x;
-        cin >> x;
-        b.insert(x);
+    for (int i = 1; i <= m; i++) {
+        cin >> b[i];
+    }
+    sort(b.begin(), b.end());
+    vector<long long> pref(n + 1);
+    for (int i = 1; i <= n; i++) {
+        pref[i] = pref[i - 1] + a[i - 1];
     }
 
-    long long dp0 = 0;
-    long long dp1 = LLONG_MIN / 2;
-    for (int i = n; i >= 1; i--) {
-        long long val = a[i - 1];
-        long long p1 = LLONG_MIN / 2, p2 = LLONG_MIN / 2;
-        if (b.contains(i)) {
-            p1 = dp1;
-            p2 = dp0;
-        }
-        long long newDp0 = val + max(dp0, p1);
-        long long newDp1 = -val + max(dp1, p2);
-        dp0 = newDp0;
-        dp1 = newDp1;
+
+    long long ans = 0;
+    for (int i = 1; i <= m; i++) {
+        ans += abs(pref[b[i]] - pref[b[i - 1]]);
     }
 
-    cout << max(dp0, dp1) << '\n';
-}
+    ans += pref[n] - pref[b.back()];
+    cout << ans << '\n';
+}       
 
 int main() {
     int t;
