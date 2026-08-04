@@ -9,12 +9,12 @@ void solve() {
     int odd = 0, even = 0;
     for (int i = 0; i < n; i++) {
         if (a[i] == '1') {
-            if (i % 2) even++;
-            else odd++;
+            if (i % 2 == 0) even += 1;
+            else odd += 1;
         }
         if (b[i] == '1') {
-            if (i % 2) even--;
-            else odd--;
+            if (i % 2 == 0) even -= 1;
+            else odd -= 1;
         }
     }
 
