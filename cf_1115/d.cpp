@@ -10,12 +10,27 @@ void solve() {
         cin >> a[i];
     }
 
-    vector<vector<int>> components;
-    int prev = -1;
-    int idx = -1;
+    priority_queue<int, vector<int>, greater<int>> diff;
+    cout << a[0] << ' ';
+    ll res = a[0];
     for (int i = 1; i < n - 1; i++) {
-        if (prev)
+        diff.push(a[i] - a[i - 1]);
+        if ((a[i - 1] + a[i + 1]) % 2) {
+            while (!diff.empty()) {
+                res += diff.top();
+                cout << res << ' ';
+                diff.pop();
+            }
+        }
     }
+
+    diff.push(a[n - 1] - a[n - 2]);
+    while (!diff.empty()) {
+        res += diff.top();
+        cout << res << ' ';
+        diff.pop();
+    }
+    cout << '\n';
 }
 
 int main() {
