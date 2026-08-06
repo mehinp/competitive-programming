@@ -30,7 +30,7 @@ void solve() {
         return;
     }
 
-    int ans = 0;
+    long long ans = 0;
     for (int i = 0; i < int(oddA.size()); i++) {
         ans += abs(oddA[i] - oddB[i]) / 2;
     }
