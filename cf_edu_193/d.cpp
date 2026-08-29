@@ -4,38 +4,29 @@ using namespace std;
 void solve() {
     int x, y;
     cin >> x >> y;
-    bool swapped = false;
-    if (y > x) {
-        swap(x, y);
-        swapped = true;
+    int k = 0;
+    while ((k + 1) * (k + 2) / 2 <= x + y) {
+        k += 1;
     }
 
-    int y_moves = 0;
-    int yc = 0;
-    int base = 1;
-    while (yc + base <= y) {
-        yc += base;
-        base += 1;
-        y_moves += 1;
-    }
+    int sum = k * (k + 1) / 2;
+    int x1 = x;
+    int y1 = max(0, sum - x);
 
-    int x_moves = 0;
-    int xc = 1;
-    base = 1;
-    while (xc + y_moves * base <= x) {
-        x_moves += 1;
-        xc += base;
-        base += 1;
-    }
+    int x2 = max(0, sum - y);
+    int y2 = y;
 
-    cout << x_moves << ' ' << y_moves << ' ';
-    for (int i = 0; i < x_moves; i++) {
-        cout << (swapped ? "Y" : "X");
+    string ans = "";
+    for (int i = k; i >= 1; i--) {
+        if ( >= i) {
+            xc -= i;
+            ans += 'X';
+        } else {
+            yc -= i;
+            ans += 'Y';
+        }
     }
-    for (int i = 0; i < y_moves; i++) {
-        cout << (swapped ? "X" : "Y");
-    }
-    cout << '\n';
+    cout << ans << '\n';
 }
 
 int main() {
